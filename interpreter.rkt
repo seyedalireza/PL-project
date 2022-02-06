@@ -124,19 +124,19 @@
 
 (define (value-of-eq sm env)
   (cases eq-sum sm
-    (an-eq-sum1 (l r) (equal? (value-of-sum l env) (value-of-sum r env)))
+    (an-eq-sum1 (l r) (equal? (expval->num (value-of-sum l env)) (expval->num (value-of-sum r env))))
   )
 )
 
 (define (value-of-lt sm env)
   (cases lt-sum sm
-    (a-lt-sum1 (l r) (< (value-of-sum l env) (value-of-sum r env)))
+    (a-lt-sum1 (l r) (< (expval->num (value-of-sum l env)) (expval->num (value-of-sum r env))))
   )
 )
 
 (define (value-of-gt sm env)
   (cases gt-sum sm
-    (a-gt-sum1 (l r) (> (value-of-sum l env) (value-of-sum r env)))
+    (a-gt-sum1 (l r) (> (expval->num (value-of-sum l env)) (expval->num (value-of-sum r env))))
   )
 )
 
@@ -150,13 +150,13 @@
 
 (define (value-of-inv inv env)
   (cases inversion inv
-    (a-comparison (comp) (value-of-comp comp env))
+    (a-comparison (comp) (bool-val (value-of-comp comp env)))
     (a-not-inversion (inv) (let ([val (expval->bool (value-of-inv inv env))])
                            (bool-val (not val))))))
 
 (define (value-of-conj conj env)
   (cases conjunction conj
-    (an-inversion (inv) (value-of-inv inv env))
+    (an-inversion (inv)  (value-of-inv inv env))
     (multi-inversions (conj inv) (let ([val1 (expval->bool (value-of-conj conj env))]   
                                           [val2 (expval->bool (value-of-inv inv env))])
                                       (bool-val (and val1 val2))
@@ -284,6 +284,12 @@
   (cases arguments args1
     (an-expression1 (exp) (list exp))
     (mult-arguments (args2 exp) (append (arguments->list args2) (list exp)))))
+
+
+(define (expressions->list expes)
+  (cases expressions expes
+    (single-expression (exp) (list exp))
+    (multi-expressions (exp2 exp) (append (arguments->list exp2) (list exp)))))
 
 (define (params->list func-params)
   (cases params func-params

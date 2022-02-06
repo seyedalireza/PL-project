@@ -1,0 +1,1797 @@
+0	g475891	=	(g475892)
+1	g475892	=	(Program EOF)
+2	Program	=	(Statements)
+3	Statements	=	(Statement semi-colon)
+4	Statements	=	(Statements Statement semi-colon)
+5	Statement	=	(Compound-stmt)
+6	Statement	=	(Simple-stmt)
+7	Simple-stmt	=	(Assignment)
+8	Simple-stmt	=	(Return-stmt)
+9	Simple-stmt	=	(pass)
+10	Simple-stmt	=	(print paranthes-open Arguments paranthes-close)
+11	Compound-stmt	=	(Function-def)
+12	Compound-stmt	=	(If-stmt)
+13	Compound-stmt	=	(For-stmt)
+14	Assignment	=	(ID assign Expression)
+15	Return-stmt	=	(return)
+16	Return-stmt	=	(return Expression)
+17	Function-def	=	(def ID paranthes-open Params paranthes-close colon Statements)
+18	Function-def	=	(def ID paranthes-open paranthes-close colon Statements)
+19	Params	=	(Param-with-default)
+20	Params	=	(Params comma Param-with-default)
+21	Param-with-default	=	(ID assign Expression)
+22	If-stmt	=	(if Expression colon Statements Else-block)
+23	Else-block	=	(else colon Statements)
+24	For-stmt	=	(for ID in Expression colon Statements)
+25	Expression	=	(Disjunction)
+26	Expression	=	(Sum)
+27	Disjunction	=	(Conjunction)
+28	Disjunction	=	(Disjunction or Conjunction)
+29	Conjunction	=	(Inversion)
+30	Conjunction	=	(Conjunction and Inversion)
+31	Inversion	=	(not Inversion)
+32	Inversion	=	(Comparison)
+33	Comparison	=	(Eq-Sum)
+34	Comparison	=	(Lt-Sum)
+35	Comparison	=	(Gt-Sum)
+36	Eq-Sum	=	(Sum equality Sum)
+37	Lt-Sum	=	(Sum less Sum)
+38	Gt-Sum	=	(Sum greater Sum)
+39	Sum	=	(Sum plus Term)
+40	Sum	=	(Sum minus Term)
+41	Sum	=	(Term)
+42	Term	=	(Term mult Factor)
+43	Term	=	(Term divide Factor)
+44	Term	=	(Factor)
+45	Factor	=	(plus Factor)
+46	Factor	=	(minus Factor)
+47	Factor	=	(Power)
+48	Power	=	(Atom power Factor)
+49	Power	=	(Primary)
+50	Primary	=	(Atom)
+51	Primary	=	(Primary bracket-open Expression bracket-close)
+52	Primary	=	(Primary paranthes-open paranthes-close)
+53	Primary	=	(Primary paranthes-open Arguments paranthes-close)
+54	Arguments	=	(Expression)
+55	Arguments	=	(Arguments comma Expression)
+56	Atom	=	(ID)
+57	Atom	=	(true)
+58	Atom	=	(false)
+59	Atom	=	(none)
+60	Atom	=	(NUM)
+61	Atom	=	(List)
+62	List	=	(bracket-open Expressions bracket-close)
+63	List	=	(bracket-open bracket-close)
+64	Expressions	=	(Expressions comma Expression)
+65	Expressions	=	(Expression)
+State 0
+	g475891 -> . g475892 
+
+	If-stmt					goto	10
+	for					shift	13
+	return					shift	16
+	For-stmt					goto	11
+	pass					shift	17
+	print					shift	18
+	Simple-stmt					goto	5
+	Statement					goto	4
+	Statements					goto	3
+	Program					goto	2
+	def					shift	15
+	Assignment					goto	7
+	if					shift	14
+	Compound-stmt					goto	6
+	Function-def					goto	9
+	Return-stmt					goto	8
+	g475892					goto	1
+	ID					shift	12
+
+State 1
+	g475891 -> g475892 . 
+
+
+State 2
+	g475892 -> Program . EOF 
+
+	EOF					accept	
+
+State 3
+	Program -> Statements . 
+	Statements -> Statements . Statement semi-colon 
+
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	EOF					reduce	2
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	20
+	Simple-stmt					goto	5
+	ID					shift	12
+	def					shift	15
+
+State 4
+	Statements -> Statement . semi-colon 
+
+	semi-colon					shift	21
+
+State 5
+	Statement -> Simple-stmt . 
+
+	semi-colon					reduce	6
+
+State 6
+	Statement -> Compound-stmt . 
+
+	semi-colon					reduce	5
+
+State 7
+	Simple-stmt -> Assignment . 
+
+	semi-colon					reduce	7
+
+State 8
+	Simple-stmt -> Return-stmt . 
+
+	semi-colon					reduce	8
+
+State 9
+	Compound-stmt -> Function-def . 
+
+	semi-colon					reduce	11
+
+State 10
+	Compound-stmt -> If-stmt . 
+
+	semi-colon					reduce	12
+
+State 11
+	Compound-stmt -> For-stmt . 
+
+	semi-colon					reduce	13
+
+State 12
+	Assignment -> ID . assign Expression 
+
+	assign					shift	22
+
+State 13
+	For-stmt -> for . ID in Expression colon Statements 
+
+	ID					shift	23
+
+State 14
+	If-stmt -> if . Expression colon Statements Else-block 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	24
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 15
+	Function-def -> def . ID paranthes-open Params paranthes-close colon Statements 
+	Function-def -> def . ID paranthes-open paranthes-close colon Statements 
+
+	ID					shift	48
+
+State 16
+	Return-stmt -> return . 
+	Return-stmt -> return . Expression 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	semi-colon					reduce	15
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	49
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 17
+	Simple-stmt -> pass . 
+
+	semi-colon					reduce	9
+
+State 18
+	Simple-stmt -> print . paranthes-open Arguments paranthes-close 
+
+	paranthes-open					shift	50
+
+State 19
+	g475892 -> Program EOF . 
+
+
+State 20
+	Statements -> Statements Statement . semi-colon 
+
+	semi-colon					shift	51
+
+State 21
+	Statements -> Statement semi-colon . 
+
+	semi-colon					reduce	3
+	return					reduce	3
+	if					reduce	3
+	for					reduce	3
+	EOF					reduce	3
+	pass					reduce	3
+	print					reduce	3
+	ID					reduce	3
+	def					reduce	3
+	else					reduce	3
+
+State 22
+	Assignment -> ID assign . Expression 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	52
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 23
+	For-stmt -> for ID . in Expression colon Statements 
+
+	in					shift	53
+
+State 24
+	If-stmt -> if Expression . colon Statements Else-block 
+
+	colon					shift	54
+
+State 25
+	Expression -> Disjunction . 
+	Disjunction -> Disjunction . or Conjunction 
+
+	semi-colon					reduce	25
+	paranthes-close					reduce	25
+	colon					reduce	25
+	or					shift	55
+	comma					reduce	25
+	bracket-close					reduce	25
+
+State 26
+	Disjunction -> Conjunction . 
+	Conjunction -> Conjunction . and Inversion 
+
+	and					shift	56
+	semi-colon					reduce	27
+	paranthes-close					reduce	27
+	colon					reduce	27
+	or					reduce	27
+	comma					reduce	27
+	bracket-close					reduce	27
+
+State 27
+	Conjunction -> Inversion . 
+
+	and					reduce	29
+	semi-colon					reduce	29
+	paranthes-close					reduce	29
+	colon					reduce	29
+	or					reduce	29
+	comma					reduce	29
+	bracket-close					reduce	29
+
+State 28
+	Inversion -> Comparison . 
+
+	and					reduce	32
+	semi-colon					reduce	32
+	paranthes-close					reduce	32
+	colon					reduce	32
+	or					reduce	32
+	comma					reduce	32
+	bracket-close					reduce	32
+
+State 29
+	Comparison -> Eq-Sum . 
+
+	and					reduce	33
+	semi-colon					reduce	33
+	paranthes-close					reduce	33
+	colon					reduce	33
+	or					reduce	33
+	comma					reduce	33
+	bracket-close					reduce	33
+
+State 30
+	Comparison -> Lt-Sum . 
+
+	and					reduce	34
+	semi-colon					reduce	34
+	paranthes-close					reduce	34
+	colon					reduce	34
+	or					reduce	34
+	comma					reduce	34
+	bracket-close					reduce	34
+
+State 31
+	Comparison -> Gt-Sum . 
+
+	and					reduce	35
+	semi-colon					reduce	35
+	paranthes-close					reduce	35
+	colon					reduce	35
+	or					reduce	35
+	comma					reduce	35
+	bracket-close					reduce	35
+
+State 32
+	Expression -> Sum . 
+	Eq-Sum -> Sum . equality Sum 
+	Lt-Sum -> Sum . less Sum 
+	Gt-Sum -> Sum . greater Sum 
+	Sum -> Sum . plus Term 
+	Sum -> Sum . minus Term 
+
+	equality					shift	61
+	semi-colon					reduce	26
+	paranthes-close					reduce	26
+	colon					reduce	26
+	plus					shift	57
+	less					shift	60
+	bracket-close					reduce	26
+	comma					reduce	26
+	greater					shift	59
+	minus					shift	58
+
+State 33
+	Sum -> Term . 
+	Term -> Term . mult Factor 
+	Term -> Term . divide Factor 
+
+	semi-colon					reduce	41
+	and					reduce	41
+	equality					reduce	41
+	paranthes-close					reduce	41
+	plus					reduce	41
+	colon					reduce	41
+	less					reduce	41
+	or					reduce	41
+	bracket-close					reduce	41
+	comma					reduce	41
+	divide					shift	63
+	greater					reduce	41
+	minus					reduce	41
+	mult					shift	62
+
+State 34
+	Term -> Factor . 
+
+	semi-colon					reduce	44
+	and					reduce	44
+	equality					reduce	44
+	paranthes-close					reduce	44
+	plus					reduce	44
+	colon					reduce	44
+	less					reduce	44
+	or					reduce	44
+	bracket-close					reduce	44
+	comma					reduce	44
+	divide					reduce	44
+	greater					reduce	44
+	minus					reduce	44
+	mult					reduce	44
+
+State 35
+	Factor -> Power . 
+
+	semi-colon					reduce	47
+	and					reduce	47
+	equality					reduce	47
+	paranthes-close					reduce	47
+	plus					reduce	47
+	colon					reduce	47
+	less					reduce	47
+	or					reduce	47
+	bracket-close					reduce	47
+	comma					reduce	47
+	divide					reduce	47
+	greater					reduce	47
+	minus					reduce	47
+	mult					reduce	47
+
+State 36
+	Power -> Primary . 
+	Primary -> Primary . bracket-open Expression bracket-close 
+	Primary -> Primary . paranthes-open paranthes-close 
+	Primary -> Primary . paranthes-open Arguments paranthes-close 
+
+	semi-colon					reduce	49
+	and					reduce	49
+	equality					reduce	49
+	paranthes-close					reduce	49
+	plus					reduce	49
+	colon					reduce	49
+	less					reduce	49
+	or					reduce	49
+	bracket-close					reduce	49
+	comma					reduce	49
+	bracket-open					shift	65
+	divide					reduce	49
+	greater					reduce	49
+	paranthes-open					shift	64
+	minus					reduce	49
+	mult					reduce	49
+
+State 37
+	Power -> Atom . power Factor 
+	Primary -> Atom . 
+
+	and					reduce	50
+	semi-colon					reduce	50
+	equality					reduce	50
+	paranthes-close					reduce	50
+	colon					reduce	50
+	less					reduce	50
+	comma					reduce	50
+	bracket-open					reduce	50
+	divide					reduce	50
+	minus					reduce	50
+	plus					reduce	50
+	or					reduce	50
+	bracket-close					reduce	50
+	greater					reduce	50
+	paranthes-open					reduce	50
+	mult					reduce	50
+	power					shift	66
+
+State 38
+	Atom -> List . 
+
+	and					reduce	61
+	semi-colon					reduce	61
+	equality					reduce	61
+	paranthes-close					reduce	61
+	colon					reduce	61
+	less					reduce	61
+	comma					reduce	61
+	bracket-open					reduce	61
+	divide					reduce	61
+	minus					reduce	61
+	plus					reduce	61
+	or					reduce	61
+	bracket-close					reduce	61
+	greater					reduce	61
+	paranthes-open					reduce	61
+	power					reduce	61
+	mult					reduce	61
+
+State 39
+	Atom -> NUM . 
+
+	and					reduce	60
+	semi-colon					reduce	60
+	equality					reduce	60
+	paranthes-close					reduce	60
+	colon					reduce	60
+	less					reduce	60
+	comma					reduce	60
+	bracket-open					reduce	60
+	divide					reduce	60
+	minus					reduce	60
+	plus					reduce	60
+	or					reduce	60
+	bracket-close					reduce	60
+	greater					reduce	60
+	paranthes-open					reduce	60
+	power					reduce	60
+	mult					reduce	60
+
+State 40
+	Atom -> ID . 
+
+	and					reduce	56
+	semi-colon					reduce	56
+	equality					reduce	56
+	paranthes-close					reduce	56
+	colon					reduce	56
+	less					reduce	56
+	comma					reduce	56
+	bracket-open					reduce	56
+	divide					reduce	56
+	minus					reduce	56
+	plus					reduce	56
+	or					reduce	56
+	bracket-close					reduce	56
+	greater					reduce	56
+	paranthes-open					reduce	56
+	power					reduce	56
+	mult					reduce	56
+
+State 41
+	Factor -> plus . Factor 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	67
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	true					shift	43
+	minus					shift	42
+	ID					shift	40
+	Atom					goto	37
+
+State 42
+	Factor -> minus . Factor 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	68
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	true					shift	43
+	minus					shift	42
+	ID					shift	40
+	Atom					goto	37
+
+State 43
+	Atom -> true . 
+
+	and					reduce	57
+	semi-colon					reduce	57
+	equality					reduce	57
+	paranthes-close					reduce	57
+	colon					reduce	57
+	less					reduce	57
+	comma					reduce	57
+	bracket-open					reduce	57
+	divide					reduce	57
+	minus					reduce	57
+	plus					reduce	57
+	or					reduce	57
+	bracket-close					reduce	57
+	greater					reduce	57
+	paranthes-open					reduce	57
+	power					reduce	57
+	mult					reduce	57
+
+State 44
+	Atom -> false . 
+
+	and					reduce	58
+	semi-colon					reduce	58
+	equality					reduce	58
+	paranthes-close					reduce	58
+	colon					reduce	58
+	less					reduce	58
+	comma					reduce	58
+	bracket-open					reduce	58
+	divide					reduce	58
+	minus					reduce	58
+	plus					reduce	58
+	or					reduce	58
+	bracket-close					reduce	58
+	greater					reduce	58
+	paranthes-open					reduce	58
+	power					reduce	58
+	mult					reduce	58
+
+State 45
+	Inversion -> not . Inversion 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	70
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	69
+
+State 46
+	Atom -> none . 
+
+	and					reduce	59
+	semi-colon					reduce	59
+	equality					reduce	59
+	paranthes-close					reduce	59
+	colon					reduce	59
+	less					reduce	59
+	comma					reduce	59
+	bracket-open					reduce	59
+	divide					reduce	59
+	minus					reduce	59
+	plus					reduce	59
+	or					reduce	59
+	bracket-close					reduce	59
+	greater					reduce	59
+	paranthes-open					reduce	59
+	power					reduce	59
+	mult					reduce	59
+
+State 47
+	List -> bracket-open . Expressions bracket-close 
+	List -> bracket-open . bracket-close 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	Expressions					goto	72
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	71
+	NUM					shift	39
+	Gt-Sum					goto	31
+	bracket-close					shift	73
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 48
+	Function-def -> def ID . paranthes-open Params paranthes-close colon Statements 
+	Function-def -> def ID . paranthes-open paranthes-close colon Statements 
+
+	paranthes-open					shift	74
+
+State 49
+	Return-stmt -> return Expression . 
+
+	semi-colon					reduce	16
+
+State 50
+	Simple-stmt -> print paranthes-open . Arguments paranthes-close 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Arguments					goto	76
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	75
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 51
+	Statements -> Statements Statement semi-colon . 
+
+	semi-colon					reduce	4
+	return					reduce	4
+	if					reduce	4
+	for					reduce	4
+	EOF					reduce	4
+	pass					reduce	4
+	print					reduce	4
+	ID					reduce	4
+	def					reduce	4
+	else					reduce	4
+
+State 52
+	Assignment -> ID assign Expression . 
+
+	semi-colon					reduce	14
+
+State 53
+	For-stmt -> for ID in . Expression colon Statements 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	77
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 54
+	If-stmt -> if Expression colon . Statements Else-block 
+
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	4
+	Simple-stmt					goto	5
+	Statements					goto	78
+	ID					shift	12
+	def					shift	15
+
+State 55
+	Disjunction -> Disjunction or . Conjunction 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	70
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	79
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 56
+	Conjunction -> Conjunction and . Inversion 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	70
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	80
+
+State 57
+	Sum -> Sum plus . Term 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	34
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	Term					goto	81
+	true					shift	43
+	minus					shift	42
+	ID					shift	40
+	Atom					goto	37
+
+State 58
+	Sum -> Sum minus . Term 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	34
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	Term					goto	82
+	true					shift	43
+	minus					shift	42
+	ID					shift	40
+	Atom					goto	37
+
+State 59
+	Gt-Sum -> Sum greater . Sum 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	34
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	Term					goto	33
+	true					shift	43
+	minus					shift	42
+	Sum					goto	83
+	ID					shift	40
+	Atom					goto	37
+
+State 60
+	Lt-Sum -> Sum less . Sum 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	34
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	Term					goto	33
+	true					shift	43
+	minus					shift	42
+	Sum					goto	84
+	ID					shift	40
+	Atom					goto	37
+
+State 61
+	Eq-Sum -> Sum equality . Sum 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	34
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	Term					goto	33
+	true					shift	43
+	minus					shift	42
+	Sum					goto	85
+	ID					shift	40
+	Atom					goto	37
+
+State 62
+	Term -> Term mult . Factor 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	86
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	true					shift	43
+	minus					shift	42
+	ID					shift	40
+	Atom					goto	37
+
+State 63
+	Term -> Term divide . Factor 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	87
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	true					shift	43
+	minus					shift	42
+	ID					shift	40
+	Atom					goto	37
+
+State 64
+	Primary -> Primary paranthes-open . paranthes-close 
+	Primary -> Primary paranthes-open . Arguments paranthes-close 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	paranthes-close					shift	89
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Arguments					goto	88
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	75
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 65
+	Primary -> Primary bracket-open . Expression bracket-close 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	90
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 66
+	Power -> Atom power . Factor 
+
+	none					shift	46
+	false					shift	44
+	plus					shift	41
+	List					goto	38
+	NUM					shift	39
+	Factor					goto	91
+	bracket-open					shift	47
+	Power					goto	35
+	Primary					goto	36
+	true					shift	43
+	minus					shift	42
+	ID					shift	40
+	Atom					goto	37
+
+State 67
+	Factor -> plus Factor . 
+
+	semi-colon					reduce	45
+	and					reduce	45
+	equality					reduce	45
+	paranthes-close					reduce	45
+	plus					reduce	45
+	colon					reduce	45
+	less					reduce	45
+	or					reduce	45
+	bracket-close					reduce	45
+	comma					reduce	45
+	divide					reduce	45
+	greater					reduce	45
+	minus					reduce	45
+	mult					reduce	45
+
+State 68
+	Factor -> minus Factor . 
+
+	semi-colon					reduce	46
+	and					reduce	46
+	equality					reduce	46
+	paranthes-close					reduce	46
+	plus					reduce	46
+	colon					reduce	46
+	less					reduce	46
+	or					reduce	46
+	bracket-close					reduce	46
+	comma					reduce	46
+	divide					reduce	46
+	greater					reduce	46
+	minus					reduce	46
+	mult					reduce	46
+
+State 69
+	Inversion -> not Inversion . 
+
+	and					reduce	31
+	semi-colon					reduce	31
+	paranthes-close					reduce	31
+	colon					reduce	31
+	or					reduce	31
+	comma					reduce	31
+	bracket-close					reduce	31
+
+State 70
+	Eq-Sum -> Sum . equality Sum 
+	Lt-Sum -> Sum . less Sum 
+	Gt-Sum -> Sum . greater Sum 
+	Sum -> Sum . plus Term 
+	Sum -> Sum . minus Term 
+
+	equality					shift	61
+	greater					shift	59
+	less					shift	60
+	plus					shift	57
+	minus					shift	58
+
+State 71
+	Expressions -> Expression . 
+
+	comma					reduce	65
+	bracket-close					reduce	65
+
+State 72
+	List -> bracket-open Expressions . bracket-close 
+	Expressions -> Expressions . comma Expression 
+
+	bracket-close					shift	93
+	comma					shift	92
+
+State 73
+	List -> bracket-open bracket-close . 
+
+	and					reduce	63
+	semi-colon					reduce	63
+	equality					reduce	63
+	paranthes-close					reduce	63
+	colon					reduce	63
+	less					reduce	63
+	comma					reduce	63
+	bracket-open					reduce	63
+	divide					reduce	63
+	minus					reduce	63
+	plus					reduce	63
+	or					reduce	63
+	bracket-close					reduce	63
+	greater					reduce	63
+	paranthes-open					reduce	63
+	power					reduce	63
+	mult					reduce	63
+
+State 74
+	Function-def -> def ID paranthes-open . Params paranthes-close colon Statements 
+	Function-def -> def ID paranthes-open . paranthes-close colon Statements 
+
+	paranthes-close					shift	97
+	Param-with-default					goto	95
+	Params					goto	94
+	ID					shift	96
+
+State 75
+	Arguments -> Expression . 
+
+	paranthes-close					reduce	54
+	comma					reduce	54
+
+State 76
+	Simple-stmt -> print paranthes-open Arguments . paranthes-close 
+	Arguments -> Arguments . comma Expression 
+
+	paranthes-close					shift	99
+	comma					shift	98
+
+State 77
+	For-stmt -> for ID in Expression . colon Statements 
+
+	colon					shift	100
+
+State 78
+	Statements -> Statements . Statement semi-colon 
+	If-stmt -> if Expression colon Statements . Else-block 
+
+	If-stmt					goto	10
+	for					shift	13
+	return					shift	16
+	For-stmt					goto	11
+	pass					shift	17
+	Simple-stmt					goto	5
+	Statement					goto	20
+	print					shift	18
+	Else-block					goto	101
+	def					shift	15
+	Assignment					goto	7
+	if					shift	14
+	Compound-stmt					goto	6
+	Function-def					goto	9
+	Return-stmt					goto	8
+	ID					shift	12
+	else					shift	102
+
+State 79
+	Disjunction -> Disjunction or Conjunction . 
+	Conjunction -> Conjunction . and Inversion 
+
+	and					shift	56
+	semi-colon					reduce	28
+	paranthes-close					reduce	28
+	colon					reduce	28
+	or					reduce	28
+	comma					reduce	28
+	bracket-close					reduce	28
+
+State 80
+	Conjunction -> Conjunction and Inversion . 
+
+	and					reduce	30
+	semi-colon					reduce	30
+	paranthes-close					reduce	30
+	colon					reduce	30
+	or					reduce	30
+	comma					reduce	30
+	bracket-close					reduce	30
+
+State 81
+	Sum -> Sum plus Term . 
+	Term -> Term . mult Factor 
+	Term -> Term . divide Factor 
+
+	semi-colon					reduce	39
+	and					reduce	39
+	equality					reduce	39
+	paranthes-close					reduce	39
+	plus					reduce	39
+	colon					reduce	39
+	less					reduce	39
+	or					reduce	39
+	bracket-close					reduce	39
+	comma					reduce	39
+	divide					shift	63
+	greater					reduce	39
+	minus					reduce	39
+	mult					shift	62
+
+State 82
+	Sum -> Sum minus Term . 
+	Term -> Term . mult Factor 
+	Term -> Term . divide Factor 
+
+	semi-colon					reduce	40
+	and					reduce	40
+	equality					reduce	40
+	paranthes-close					reduce	40
+	plus					reduce	40
+	colon					reduce	40
+	less					reduce	40
+	or					reduce	40
+	bracket-close					reduce	40
+	comma					reduce	40
+	divide					shift	63
+	greater					reduce	40
+	minus					reduce	40
+	mult					shift	62
+
+State 83
+	Gt-Sum -> Sum greater Sum . 
+	Sum -> Sum . plus Term 
+	Sum -> Sum . minus Term 
+
+	semi-colon					reduce	38
+	and					reduce	38
+	paranthes-close					reduce	38
+	colon					reduce	38
+	plus					shift	57
+	or					reduce	38
+	bracket-close					reduce	38
+	comma					reduce	38
+	minus					shift	58
+
+State 84
+	Lt-Sum -> Sum less Sum . 
+	Sum -> Sum . plus Term 
+	Sum -> Sum . minus Term 
+
+	semi-colon					reduce	37
+	and					reduce	37
+	paranthes-close					reduce	37
+	colon					reduce	37
+	plus					shift	57
+	or					reduce	37
+	bracket-close					reduce	37
+	comma					reduce	37
+	minus					shift	58
+
+State 85
+	Eq-Sum -> Sum equality Sum . 
+	Sum -> Sum . plus Term 
+	Sum -> Sum . minus Term 
+
+	semi-colon					reduce	36
+	and					reduce	36
+	paranthes-close					reduce	36
+	colon					reduce	36
+	plus					shift	57
+	or					reduce	36
+	bracket-close					reduce	36
+	comma					reduce	36
+	minus					shift	58
+
+State 86
+	Term -> Term mult Factor . 
+
+	semi-colon					reduce	42
+	and					reduce	42
+	equality					reduce	42
+	paranthes-close					reduce	42
+	plus					reduce	42
+	colon					reduce	42
+	less					reduce	42
+	or					reduce	42
+	bracket-close					reduce	42
+	comma					reduce	42
+	divide					reduce	42
+	greater					reduce	42
+	minus					reduce	42
+	mult					reduce	42
+
+State 87
+	Term -> Term divide Factor . 
+
+	semi-colon					reduce	43
+	and					reduce	43
+	equality					reduce	43
+	paranthes-close					reduce	43
+	plus					reduce	43
+	colon					reduce	43
+	less					reduce	43
+	or					reduce	43
+	bracket-close					reduce	43
+	comma					reduce	43
+	divide					reduce	43
+	greater					reduce	43
+	minus					reduce	43
+	mult					reduce	43
+
+State 88
+	Primary -> Primary paranthes-open Arguments . paranthes-close 
+	Arguments -> Arguments . comma Expression 
+
+	paranthes-close					shift	103
+	comma					shift	98
+
+State 89
+	Primary -> Primary paranthes-open paranthes-close . 
+
+	equality					reduce	52
+	semi-colon					reduce	52
+	and					reduce	52
+	paranthes-close					reduce	52
+	plus					reduce	52
+	less					reduce	52
+	colon					reduce	52
+	or					reduce	52
+	bracket-close					reduce	52
+	comma					reduce	52
+	bracket-open					reduce	52
+	divide					reduce	52
+	greater					reduce	52
+	paranthes-open					reduce	52
+	minus					reduce	52
+	mult					reduce	52
+
+State 90
+	Primary -> Primary bracket-open Expression . bracket-close 
+
+	bracket-close					shift	104
+
+State 91
+	Power -> Atom power Factor . 
+
+	semi-colon					reduce	48
+	and					reduce	48
+	equality					reduce	48
+	paranthes-close					reduce	48
+	plus					reduce	48
+	colon					reduce	48
+	less					reduce	48
+	or					reduce	48
+	bracket-close					reduce	48
+	comma					reduce	48
+	divide					reduce	48
+	greater					reduce	48
+	minus					reduce	48
+	mult					reduce	48
+
+State 92
+	Expressions -> Expressions comma . Expression 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	105
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 93
+	List -> bracket-open Expressions bracket-close . 
+
+	and					reduce	62
+	semi-colon					reduce	62
+	equality					reduce	62
+	paranthes-close					reduce	62
+	colon					reduce	62
+	less					reduce	62
+	comma					reduce	62
+	bracket-open					reduce	62
+	divide					reduce	62
+	minus					reduce	62
+	plus					reduce	62
+	or					reduce	62
+	bracket-close					reduce	62
+	greater					reduce	62
+	paranthes-open					reduce	62
+	power					reduce	62
+	mult					reduce	62
+
+State 94
+	Function-def -> def ID paranthes-open Params . paranthes-close colon Statements 
+	Params -> Params . comma Param-with-default 
+
+	paranthes-close					shift	107
+	comma					shift	106
+
+State 95
+	Params -> Param-with-default . 
+
+	paranthes-close					reduce	19
+	comma					reduce	19
+
+State 96
+	Param-with-default -> ID . assign Expression 
+
+	assign					shift	108
+
+State 97
+	Function-def -> def ID paranthes-open paranthes-close . colon Statements 
+
+	colon					shift	109
+
+State 98
+	Arguments -> Arguments comma . Expression 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	110
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 99
+	Simple-stmt -> print paranthes-open Arguments paranthes-close . 
+
+	semi-colon					reduce	10
+
+State 100
+	For-stmt -> for ID in Expression colon . Statements 
+
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	4
+	Simple-stmt					goto	5
+	Statements					goto	111
+	ID					shift	12
+	def					shift	15
+
+State 101
+	If-stmt -> if Expression colon Statements Else-block . 
+
+	semi-colon					reduce	22
+
+State 102
+	Else-block -> else . colon Statements 
+
+	colon					shift	112
+
+State 103
+	Primary -> Primary paranthes-open Arguments paranthes-close . 
+
+	equality					reduce	53
+	semi-colon					reduce	53
+	and					reduce	53
+	paranthes-close					reduce	53
+	plus					reduce	53
+	less					reduce	53
+	colon					reduce	53
+	or					reduce	53
+	bracket-close					reduce	53
+	comma					reduce	53
+	bracket-open					reduce	53
+	divide					reduce	53
+	greater					reduce	53
+	paranthes-open					reduce	53
+	minus					reduce	53
+	mult					reduce	53
+
+State 104
+	Primary -> Primary bracket-open Expression bracket-close . 
+
+	equality					reduce	51
+	semi-colon					reduce	51
+	and					reduce	51
+	paranthes-close					reduce	51
+	plus					reduce	51
+	less					reduce	51
+	colon					reduce	51
+	or					reduce	51
+	bracket-close					reduce	51
+	comma					reduce	51
+	bracket-open					reduce	51
+	divide					reduce	51
+	greater					reduce	51
+	paranthes-open					reduce	51
+	minus					reduce	51
+	mult					reduce	51
+
+State 105
+	Expressions -> Expressions comma Expression . 
+
+	comma					reduce	64
+	bracket-close					reduce	64
+
+State 106
+	Params -> Params comma . Param-with-default 
+
+	Param-with-default					goto	113
+	ID					shift	96
+
+State 107
+	Function-def -> def ID paranthes-open Params paranthes-close . colon Statements 
+
+	colon					shift	114
+
+State 108
+	Param-with-default -> ID assign . Expression 
+
+	none					shift	46
+	Eq-Sum					goto	29
+	List					goto	38
+	bracket-open					shift	47
+	Power					goto	35
+	not					shift	45
+	Disjunction					goto	25
+	Term					goto	33
+	minus					shift	42
+	Sum					goto	32
+	Atom					goto	37
+	Comparison					goto	28
+	false					shift	44
+	plus					shift	41
+	Conjunction					goto	26
+	Expression					goto	115
+	NUM					shift	39
+	Gt-Sum					goto	31
+	Factor					goto	34
+	Lt-Sum					goto	30
+	Primary					goto	36
+	true					shift	43
+	ID					shift	40
+	Inversion					goto	27
+
+State 109
+	Function-def -> def ID paranthes-open paranthes-close colon . Statements 
+
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	4
+	Simple-stmt					goto	5
+	Statements					goto	116
+	ID					shift	12
+	def					shift	15
+
+State 110
+	Arguments -> Arguments comma Expression . 
+
+	paranthes-close					reduce	55
+	comma					reduce	55
+
+State 111
+	Statements -> Statements . Statement semi-colon 
+	For-stmt -> for ID in Expression colon Statements . 
+
+	semi-colon					reduce	24
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	20
+	Simple-stmt					goto	5
+	ID					shift	12
+	def					shift	15
+
+State 112
+	Else-block -> else colon . Statements 
+
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	4
+	Simple-stmt					goto	5
+	Statements					goto	117
+	ID					shift	12
+	def					shift	15
+
+State 113
+	Params -> Params comma Param-with-default . 
+
+	paranthes-close					reduce	20
+	comma					reduce	20
+
+State 114
+	Function-def -> def ID paranthes-open Params paranthes-close colon . Statements 
+
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	4
+	Simple-stmt					goto	5
+	Statements					goto	118
+	ID					shift	12
+	def					shift	15
+
+State 115
+	Param-with-default -> ID assign Expression . 
+
+	paranthes-close					reduce	21
+	comma					reduce	21
+
+State 116
+	Statements -> Statements . Statement semi-colon 
+	Function-def -> def ID paranthes-open paranthes-close colon Statements . 
+
+	semi-colon					reduce	18
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	20
+	Simple-stmt					goto	5
+	ID					shift	12
+	def					shift	15
+
+State 117
+	Statements -> Statements . Statement semi-colon 
+	Else-block -> else colon Statements . 
+
+	semi-colon					reduce	23
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	20
+	Simple-stmt					goto	5
+	ID					shift	12
+	def					shift	15
+
+State 118
+	Statements -> Statements . Statement semi-colon 
+	Function-def -> def ID paranthes-open Params paranthes-close colon Statements . 
+
+	semi-colon					reduce	17
+	Assignment					goto	7
+	If-stmt					goto	10
+	return					shift	16
+	if					shift	14
+	for					shift	13
+	For-stmt					goto	11
+	Compound-stmt					goto	6
+	pass					shift	17
+	Return-stmt					goto	8
+	Function-def					goto	9
+	print					shift	18
+	Statement					goto	20
+	Simple-stmt					goto	5
+	ID					shift	12
+	def					shift	15
+

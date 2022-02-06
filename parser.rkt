@@ -68,8 +68,9 @@
 (define-datatype simple-stmt simple-stmt?
   (an-assignment (assignment assignment?))
   (a-return (return-stmt return-stmt?))
-  (a-print (exp expression?))
+  (a-print (args arguments?))
   (pass-statement))
+
 
 
 (define-datatype compound-stmt compound-stmt?
@@ -222,7 +223,7 @@
                  ((Statements Statement semi-colon) (multi-statements $1 $2))
                )
     (Statement ((Compound-stmt) (a-compound-stmt $1)) ((Simple-stmt) (a-simple-stmt $1)))
-    (Simple-stmt ((Assignment) (an-assignment $1)) ((Return-stmt) (a-return $1)) ((pass) (pass-statement)) ((print paranthes-open Expression paranthes-close) (a-print $3)) )
+    (Simple-stmt ((Assignment) (an-assignment $1)) ((Return-stmt) (a-return $1)) ((pass) (pass-statement)) ((print paranthes-open Arguments paranthes-close) (a-print $3)) )
     (Compound-stmt ((Function-def) (a-function-def $1)) ((If-stmt) (a-if $1)) ((For-stmt) (a-for $1)))
     (Assignment ((ID assign Expression) (an-assignment1 $1 $3)))
     (Return-stmt ((return) (an-empty-return)) ((return Expression) (a-return-exp $2)))
