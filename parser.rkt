@@ -1,4 +1,5 @@
 #lang racket
+(provide (all-defined-out))
 
 (require (lib "eopl.ss" "eopl"))
 
@@ -54,9 +55,11 @@
                             for in if else def return pass print))
 
 (define-datatype program program? (a-program (statements statements?)))
+
 (define-datatype statements statements?
   (a-statement (statement statement?))
   (multi-statements (statements statements?) (statement statement?)))
+
 (define-datatype statement statement?
   (a-compound-stmt (compound-stmt compound-stmt?))
   (a-simple-stmt (simple-stmt simple-stmt?))
@@ -75,6 +78,9 @@
 (define-datatype assignment assignment?
   (an-assignment1 (id string?) (exp expression?))
   )
+
+(define-datatype global-stmt global-stmt?
+  (a-global (id string?)))
 
 (define-datatype return-stmt return-stmt?
   (an-empty-return)
@@ -244,10 +250,4 @@
     (List ((bracket-open Expressions bracket-close) (m-list $2)) ((bracket-open bracket-close) (empty-list)))
     (Expressions ((Expressions comma Expression) (multi-expressions $1 $3)) ((Expression) (single-expression $1)))
     )))
-
-
-;test
-(define lex-this (lambda (lexer input) (lambda () (lexer input))))
-(define my-lexer (lex-this simple-math-lexer (open-input-string "a = 1 + 2 + 3 +   4;")))
-(let ((parser-res (simple-math-parser my-lexer))) parser-res)
 
