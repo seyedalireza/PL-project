@@ -378,7 +378,7 @@
     (pass-statement () (fr env #f #f #f (non-val)))
     ;(break-stmt () (fr env #t #f #f (non-val)))
     ;(continue-stmt () (fr env #f #t #f (non-val)))
-    (print-stmt
+    (a-print
      (args)
      (begin
        (print-values (map (lambda (exp) (value-of-exp exp env)) (arguments->list args)))
