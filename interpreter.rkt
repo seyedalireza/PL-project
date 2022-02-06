@@ -250,7 +250,7 @@
 (define (print-value eval)
   (cases expval eval
     (num-val (num) (display num))
-    (bool-val (bool) (display bool))
+    (bool-val (bool) (display (if bool "True" "False")))
     (list-val (list) (begin (display "[") (print-values list) (display "]")))
     (proc-val (proc) (display proc))
     (non-val (display "None"))
@@ -262,9 +262,9 @@
     ((null? expvals) (num-val -13))
     (else
      (begin
-       (print-value (car expvals))
-       (if (null? (cdr expvals)) (display "") (display " "))
-       (print-values (cdr expvals)))
+       (print-value (first expvals))
+       (if (null? (rest expvals)) (display "") (display " "))
+       (print-values (rest expvals)))
      )
     )
   )
@@ -367,12 +367,12 @@
   
 (define (value-of-assignment-stmt a env)
   (cases assignment a
-    (an-assignment1 (id exp) (let ([val (value-of-exp exp env)])
-                              (fr (set-var id val env) #f #f #f (non-val))))))
+    (an-assignment1 (id exp) (let ([val (a-thunk exp env)])
+                              (fr (extend-env id (newref val) env) #f #f #f (non-val))))))
 
 (define (value-of-global g env)
   (cases environment env
-    (global-env (wrapped-env) (fr env #f #f #f (non-val))) ; If it is the global scope, do nothing.
+    (global-env (wrapped-env) (fr env #f #f #f (non-val)))
     (else (cases global-stmt g
             (a-global (id) (fr (extend-env id (apply-env the-global-env id) env) #f #f #f (non-val)))))))
 
@@ -380,10 +380,7 @@
   (cases simple-stmt stmt
     (an-assignment (a) (value-of-assignment-stmt a env))
     (a-return (r) (value-of-return r env))
-    ;(a-global-stmt (g) (value-of-global g env))
     (pass-statement () (fr env #f #f #f (non-val)))
-    ;(break-stmt () (fr env #t #f #f (non-val)))
-    ;(continue-stmt () (fr env #f #t #f (non-val)))
     (a-print
      (args)
      (begin
@@ -463,7 +460,10 @@
     (define lex-this (lambda (lexer input) (lambda () (lexer input))))
     (define my-lexer (lex-this simple-math-lexer (open-input-string (read-instructions-from-file addr))))
     (let ((parser-res (simple-math-parser my-lexer)))
+      (begin
       parser-res
-      (value-of-program parser-res (empty-env)))
+      (value-of-program parser-res (empty-env))
+      (display "")
+      )
     )
-  )
+  ))
