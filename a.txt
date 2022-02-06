@@ -1,5 +1,5 @@
-0	g475891	=	(g475892)
-1	g475892	=	(Program EOF)
+0	g511626	=	(g511627)
+1	g511627	=	(Program EOF)
 2	Program	=	(Statements)
 3	Statements	=	(Statement semi-colon)
 4	Statements	=	(Statements Statement semi-colon)
@@ -65,7 +65,7 @@
 64	Expressions	=	(Expressions comma Expression)
 65	Expressions	=	(Expression)
 State 0
-	g475891 -> . g475892 
+	g511626 -> . g511627 
 
 	If-stmt					goto	10
 	for					shift	13
@@ -83,15 +83,15 @@ State 0
 	Compound-stmt					goto	6
 	Function-def					goto	9
 	Return-stmt					goto	8
-	g475892					goto	1
 	ID					shift	12
+	g511627					goto	1
 
 State 1
-	g475891 -> g475892 . 
+	g511626 -> g511627 . 
 
 
 State 2
-	g475892 -> Program . EOF 
+	g511627 -> Program . EOF 
 
 	EOF					accept	
 
@@ -241,7 +241,7 @@ State 18
 	paranthes-open					shift	50
 
 State 19
-	g475892 -> Program EOF . 
+	g511627 -> Program EOF . 
 
 
 State 20

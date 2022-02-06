@@ -248,7 +248,7 @@
     (Power ((Atom power Factor) (an-atom-factor $1 $3)) ((Primary) (a-primary $1)))
     (Primary ((Atom) (an-atom $1)) ((Primary bracket-open Expression bracket-close) (an-array $1 $3))
             ((Primary paranthes-open paranthes-close) (a-function-call $1)) ((Primary paranthes-open Arguments paranthes-close) (a-function-call-param $1 $3)))
-    (Arguments ((Expression) (an-expression1 $1)) ((Arguments comma Expression) (mult-arguments)))
+    (Arguments ((Expression) (an-expression1 $1)) ((Arguments comma Expression) (mult-arguments $1 $3)))
     (Atom ((ID) (an-id $1)) ((true) (true-val)) ((false) (false-val)) ((none) (none-val)) ((NUM) (a-number $1)) ((List) (a-list $1)))
     (List ((bracket-open Expressions bracket-close) (m-list $2)) ((bracket-open bracket-close) (empty-list)))
     (Expressions ((Expressions comma Expression) (multi-expressions $1 $3)) ((Expression) (single-expression $1)))
